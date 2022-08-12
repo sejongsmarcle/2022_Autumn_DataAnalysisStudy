@@ -47,5 +47,4 @@
 - [지능기전공학부 3학년 전공필수 수업 **인공지능** 수업자료](https://github.com/sejongresearch/2020.Spring.AI)
 - [지능기전공학부 3학년 전공필수 수업 **기계학습** 수업자료](https://github.com/sejongresearch/2020.MachineLearning)
 - [2021_스마클_겨울방학_인공지능기초스터디](https://github.com/sejongsmarcle/2021_Winter_AiStudy)
-- [2021_Spring_DataAnalysisStudy](https://github.com/sejongsmarcle/2021_Spring_DataAnalysisStudy)
 - [2021_Autumn_DataAnalysisStudy](https://github.com/sejongsmarcle/2021_Autumn_DataAnalysisStudy)
