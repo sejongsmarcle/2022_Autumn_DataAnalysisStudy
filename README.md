@@ -38,7 +38,7 @@ d. 정기 프로그램은 모든 부원이 필수적으로 참여해야하는 �
 
 - 부득이하게 스터디 결석할 시에 아래 첨부된 결석 사유서를 작성한 후 운영위원에게 전달해야 합니다. 결석 처리 예외 사항은 학교 공결 처리 기준에 따릅니다.
 
-[동아리 결석 사유서.hwpx](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a2f68b19-4f2c-4303-ba9f-d5dd6643c6b9/%EB%8F%99%EC%95%84%EB%A6%AC_%EA%B2%B0%EC%84%9D_%EC%82%AC%EC%9C%A0%EC%84%9C.hwpx)
+[동아리 결석 사유서.hwpx](https://www.notion.so/smarcle/f8205eaa5daf44309a4757d42b416762#a776eb48705d4495ae1d23289257db4f)
 
 ## **스터디 계획**
 
