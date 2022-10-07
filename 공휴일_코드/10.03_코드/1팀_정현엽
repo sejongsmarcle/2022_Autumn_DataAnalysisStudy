@@ -1,0 +1,72 @@
+교재에 나와있는 설명 보다 자세하게 설명해 주셔서 듣기 좋았습니다.
+혼자 공부할 때는 이해하지 못하고 넘어가는 부분도 많았는데 코드 하나하나뜯어서 설명해 주시고
+기본적인 용어도 다시 한번 짚고 설명해 주셔서 더 와닿았습니다.!! 
+
+1)
+# beautifulsoup 불러오기
+from bs4 import BeautifulSoup
+
+# utf-8 방식으로 인코딩
+html = open("css01.html","r",encoding="utf-8")
+
+# 저장할 객체 지정
+soup=BeautifulSoup(html, "html.parser")
+
+# 정보 저장
+title=soup.select_one("div#main-goods>h1")
+
+print("h1 = ", title.string)
+
+# 0번째 요소, 1번째 요소 출력
+print(soup.select("ul#vegatables>li[class='us']")[0].string)
+print(soup.select("ul#vegatables>li[class='us']")[1].string)
+
+2)
+import re
+
+# beautifulsoup 불러오기
+from bs4 import BeautifulSoup 
+
+# utf-8 방식으로 인코딩
+myencording = 'utf-8'
+
+# 파일 이름 설정
+myparser = 'html.parser' 
+filename= 'css.01.html'
+
+# Beautifulsoup를 사용하여 html파일로 저장
+html = open(filename, encoding=myencording)
+soup = BeautifulSoup(html, myparser)   
+
+# 하위의 h1태그의 문자열 출력
+h1 = soup.select_one('div#main-goods > h1').string 
+print("h1 =",h1)
+
+# fruits 항목 출력
+li_list = soup.select("div#main-goods > ul#fruits > li")
+for li in li_list:
+    print("li =",li.string)
+    
+3)
+#라이브러리 읽어 들이기
+from urllib.request import urlopen
+
+# Beautifulsoup 불러오기
+from bs4 import BeautifulSoup
+
+myurl = 'https://music.bugs.co.kr/chart'
+
+# 링크 열기
+response = urlopen(myurl)
+
+# html 파일로 저장
+soup = BeautifulSoup(response, 'html.parser')
+
+# p태그 중 클래스 속성값이 title인 항목 추출
+tags = soup.findAll('p', attrs={'class': 'title'})
+
+# 반복문 사용하여 순위에 맞게 음원 제목 출력
+i = 1
+for tag in tags:
+    print('%d위: %s' % (i, tag.a.string))
+    i += 1
