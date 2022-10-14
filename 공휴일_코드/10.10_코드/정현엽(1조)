@@ -1,0 +1,132 @@
+1.
+
+'''
+# 넘파이 사용
+import numpy as np
+
+# 배열 생성
+a = np.array([-6, 4, 2, 3])
+b = np.array([7, 8, -3, 6])
+
+# 2행2열로 생성
+A = np.reshape(a, [2, 2])
+B = np.reshape(b, [2, 2])
+
+# transpose 시키기
+C = np.transpose(A)
+
+# 행렬 연산
+result_1=np.matmul(C, B)
+result_2=np.matmul(B, C)
+
+# 답 출력
+print(result_1)
+print(result_2)
+'''
+
+2
+
+'''
+# 넘파이, 판다스 사용
+from pandas import Series
+import numpy as np 
+import pandas as pd 
+
+# 데이터 프레임 만들기
+sdata = [50, 90, 80, 70]
+name = ['고진영', '박시현', '윤수경', '양지윤']
+
+#시리즈 생성 및 출력
+myseries = Series(data=sdata, index=name, dtype=np.float)
+print(myseries)
+s = pd.Series(data=sdata, index=name, dtype=np.float)
+
+# 고진영 100점
+s['고진영'] = 100
+
+# 출력
+print(s)
+print(s[['고진영', '윤수경']])
+'''
+
+
+3.
+
+'''
+# 판다스, 넘파이 사용
+from pandas import DataFrame
+import numpy as np
+
+# 1번
+
+# 데이터 프레임 생성
+sdata = np.reshape(np.array([2001, 1987, 2005, 1, 2, 3, 3, 1, 2]), (3,3))
+
+# 행 설정
+myindex = ['설립연도', '순위', '만족도']
+
+# 열 설정
+mycolumns = ['세종대', '서울대', '시립대']
+myframe = DataFrame(data=sdata, index=myindex, columns=mycolumns)
+
+# 데이터 프레임 출력
+print(myframe)
+
+# 2번
+
+# 데이터 프레임 설정
+sdata = {'세종대': [2001, 1, 3], '서울대': [1987, 2, 1], '시립대': [2005, 3, 2]}
+
+# 행 설정
+myindex = ['설립연도', '순위', '만족도']
+myframe = DataFrame(data=sdata, index=myindex)
+
+# 데이터 프레임 출력
+print(myframe)
+'''
+
+
+4.
+
+'''
+# 넘파이, 판다스 사용
+import numpy as np
+from pandas import Series, DataFrame
+
+# 행, 열 설정
+myindex1 = ['서울', '경기도', '강원도', '부산']
+mycolumns1 = ['고진영', '윤수경', '양지윤', '박시현']
+
+
+# 데이터 프레임 생성
+
+# 35 ~ 140
+mylist1 = list(7 * onedata for onedata in range(5, 21))
+
+# 4행 4열로 만들기
+myframe1 = DataFrame(np.reshape(np.array(mylist1), (4, 4)), index=myindex1, columns=mycolumns1)
+
+# 출력
+print(myframe1)
+
+# 행, 열 설정
+myindex2 = ['서울', '경주', '인천', '강원도']
+mycolumns2 = ['박시현', '최규민', '이용빈', '양지윤']
+
+# 5 ~ 80
+mylist2 = list(5 * onedata for onedata in range(1, 17))
+
+# 4행 4열로 만들기
+myframe2 = DataFrame(np.reshape(np.array(mylist2), (4, 4)), index=myindex2, columns=mycolumns2)
+
+# 출력
+print(myframe2)
+
+# 데이터 프레임 더하고 출력
+myframe3 = myframe1.add(myframe2)
+print(myframe3)
+
+# 기본값 설정, 데이터 프레임 더하고 출력
+myframe4 = myframe1.sub(myframe2, fill_value=50)
+print(myframe4)
+'''
