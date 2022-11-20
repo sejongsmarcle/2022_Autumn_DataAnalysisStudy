@@ -1,0 +1,44 @@
+# 크롤링
+크롤링: 웹 페이지를 그대로 가져와서 거기서 데이터를 추출해 내는 행위
+
+
+# urllib 이용한 크롤링
+
+
+# urllib.request
+urllib.request 모듈의 주요 기능
+ - 다이제스트 인증, 리디렉션, 쿠키등과 같은 URL이나 HTTP를 여는 데 도움이 되는 함수와 클래스를 정의
+-urlopen(): stiring이나 Request 객체인 URL을 열어준다
+-urlretrieve(url, savename): 이미지를 저장하는 것이 가능
+
+
+
+# Beautiful Soup 이용한 크롤링
+Beautiful Soup: 웹 페이지의 정보를 쉽게 스크랩할 수 있도록 기능을 제공하는 라이브러리
+
+
+
+# Beautiful Soup)Ex
+
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://kin.naver.com/search/list.nhn?query=%ED%8C%8C%EC%9D%B4%EC%8D%AC'
+
+response = requests.get(url)
+
+if response.status_code == 200:
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    print(soup)
+
+else : 
+    print(response.status_code)
+  
+
+    
+New
+- 파싱, 크롤링, 스크래핑 차이점
+- 크롤링은 웹 인덱싱을 위해 WWW를 체계적으로 탐색해나가는 것을 의미
+- 웹 파싱은 웹 상의 자연어, 컴퓨터 언어 등의 일련의 문자열들을 분석
+- 웹 스크래핑은 다양한 웹사이트로부터 데이터를 추출하는 기술을 의미
