@@ -1,13 +1,13 @@
 6주차 공부 내용
 ==========
-#4. 크롤링
+# 4. 크롤링
 크롤러: 웹 페이지의 정보들을 추출하기 위한 프로그램들
 크롤링: 정보를 얻어 오는 동작
 
-##4.1. urllib라이브러리를 이용한 웹 페이지 크롤링
+## 4.1. urllib라이브러리를 이용한 웹 페이지 크롤링
 파이썬에서는 urllib라이브러리 제공
 
-###4.1.1. urllib.request모듈의 개요
+### 4.1.1. urllib.request모듈의 개요
 urllib.request 모듈의 주요 기능
 -웹을 통해 데이터 요청 기능
 -쿠키 처리해주는 함수
@@ -16,20 +16,20 @@ urllib.request 모듈의 주요 기능
 -urlopen(): 네트워크를 통해 원격 객체를 읽고 메모리에 올리는 역할
 -urlretrieve(url, savename): url을 savename이라는 이름의 파일로 다운로드
 
-###4.1.2. urlopen()함수를 이용한 파일 저장
+### 4.1.2. urlopen()함수를 이용한 파일 저장
 파이썬의 open()함수를 사용해 파일로 저장 가능
 이미지 파일 다운로드 절차
 1. urlopen 함수를 이용해 이미지 객체 구하기
 2. open함수로 파일 객체(모드: wb)구하기
 3. 2번 객체.write(1번객체.read())을 이용해 파일 다운로드
 
-##4.3 Beautiful Soup 라이브러리를 이용한 웹 페이지 크롤링
+## 4.3 Beautiful Soup 라이브러리를 이용한 웹 페이지 크롤링
 크롤링 대표적인 라이브러리: Beautiful Soup 
 Beautiful Soup: HTML 구문분석 라이브러리, 웹의 태그나 클래스의 값 손쉽게 가져올 수 있도록 지원
 설치 명령어
 -pip install beautifulsoup4
 
-###4.3.1. HTML 문서 이해하기
+### 4.3.1. HTML 문서 이해하기
 *태그와 속성
 -요소: 시작 태그와 종료 태그의 조합
 -태그: <기호와 >기호로 둘러싸인 범위 안에 명령어 이름 표시
@@ -61,7 +61,7 @@ Beautiful Soup: CSS 선택자를 지정하여 원하는 요소 추출 기능 제
 -*=: 속성의 값이 ~을 포함하는 값 찾기
 -nth-of-type(su): su번째 항목 찾기, one-base indexing 사용
 
-###4.3.2. Beautiful Soup
+### 4.3.2. Beautiful Soup
 일반적으로 웹 사이트에 존재하는 URL에 대해 urlopen()함수와 Beautiful Soup을 조합해 데이터 추출
 
 *크롤링 순서
