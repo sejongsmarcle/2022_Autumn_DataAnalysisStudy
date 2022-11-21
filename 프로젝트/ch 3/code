@@ -1,0 +1,131 @@
+import numpy as np #numpy 라이브러리 import
+import pandas as pd #pandas 라이브러리 import
+import matplotlib #matplotlib 라이브러리 import
+import matplotlib.pyplot as plt# matplotlib.pyplot 라이브러리 import
+from matplotlib import font_manager, rc #font_manager, rc 라이브러리 import
+from math import sqrt  #sqrt 라이브러리 import
+
+#한글 깨짐 방지를 위해 폰트 바꾸기
+Font_location = ‘c:/windows/fonts/malgun.ttf’ #NanumGothicLight 폰트의 위치 저장
+font_name = font_manager.FontProperties(fname=font_location).get_name()
+#폰트 이름 얻어오기
+matplotlib.rc('font',family=font_name)  #rc를 통해 폰트를 설정
+#plt.rc('font', family='NanumBarunGothic') 
+
+#csv 파일을 읽어 데이터프레임 만들기
+
+theaterfile = 'theater.csv'  #영화 및 극장 상영정보를 가지고 있는 csv
+colnames = ['id','theater', 'region','bindo']  #해당 데이터들의 칼럼 정보를 지정,csv 파일에는 칼럼들에 대한 header 정보가 없음
+dftheater = pd.read_csv(theaterfile, names=colnames, header = None)
+#csv 파일을 읽어 데이터프레임 만들기
+dftheater = dftheater.rename(index=dftheater.id)
+#데이터프레임 id 칼럼의 이름 변경
+
+dftheater = dftheater.reindex(columns=['theater', 'region','bindo'])
+#데이터프레임의 색인을 다시 지정하기
+dftheater.index.name = 'id'
+#데이터 프레임의 인덱스 이름을 'id'로 지정
+print('전제 조회')
+print(dftheater)  #데이터 프레임 전체 출력
+ 
+
+#데이터프레임 dftheater의 극장별 상영 횟수를 집계하기(데이터 그룹화에 대해서는 교재 p368 참조)
+print('극장별 상영 횟수 집계')
+mygrouping = dftheater.groupby('theater')['bindo']
+#극장별 상영 건수에 대한 데이터 그룹화
+sumSeries = mygrouping.sum() 
+#그룹화 한 데이터에서 상영건수 합계를 sumSeries에 저장
+meanSeries = mygrouping.mean()
+#그룹화 한 데이터에서 상영건수 평균를 meanSeries 저장
+
+sizeSeries = mygrouping.size() 
+#그룹화 한 데이터에서 극장별 개수를 sizeSeries에 저장
+
+#dftheater 데이터프레임의 합계, 평균, 개수에 대한 새로운 데이터프레임 df 만들기
+print('Series 3개를 이용하여 DataFrame을 만들어 낸다. ')
+df = pd.concat([sumSeries, meanSeries, sizeSeries], axis=1)
+#그룹화한 데이터의 합계, 평균, 개수를 합쳐 새로운 데이터프레임 df 만들기
+df.columns = ['합계','평균','개수']  #df의 칼럼을 설정
+print(df)  #df 출력
+
+#수평막대 그래프 그리기
+df.plot(kind='barh', rot=0)#그래프의 유형은 세로막대, 회전 0도로 하여 그래프 그리기
+# df.plot(kind='barh', rot=0, alpha=0.7, legend=True, stacked=True)
+plt.title(str(mysize)+'개 매장 집계 데이터')  #그래프의 제목 설정
+# plt.show()
+filename='visualizationExam_01.png'  #파일 이름 설정
+plt.savefig(filename) #파일 저장
+
+#사전과 집계 메소드를 활용해 데이터 만들기
+print('집계 메소드를 사전에 담아 전달하기')
+print('지역의 개수와 상영 회수의 총합')
+mydict = {'bindo': 'sum', 'region': 'size'}#빈도와 지역에 대한 합계와 개수를 구하기 위한 사전 정보,sum을 bindo로 size를 region으로 변경하여 mydict에 저장
+result = dftheater.groupby('theater').agg(mydict)
+#dttheater 데이터프레임에서의 theater 정보를 행, mydict를 열로 한 그룹핑한 데이터프레임 result 만들기
+print(result)#데이터프레임 result 출력
+
+
+#집계 데이터를 넘파이로 이용해 출력하기
+print('넘파이를 이용한 출력')
+result = mygrouping.agg([np.count_nonzero, np.mean, np.std])
+#집계 데이터의 0이 아닌 데이터의 수와 평균, 표준편차를 넘파이로 구현
+print(result)#그룹핑 결과 출력
+
+# 총합에 root를 쐬워서 반환해주는 myroot 함수
+def myroot(values):
+  mysum = sum(values)#총합 구하기
+  return sqrt(mysum)#총합에 루트 씌워 반환
+
+# 총합에 root를 씌운 다음 somevalue를 더하여 반환해주는 plus_add 함수
+def plus_add(values, somevalue):
+  result = myroot(values)#myroot 함수를 호출하여 총합에 루트 씌우기
+  return result + somevalue#결과에 somevalue 더해 반환
+
+
+#데이터 만들기
+mygrouping = dftheater.groupby('theater')['bindo']#데이터의 theater을 칼럼을 그룹핑하여 데이터 만들기
+print ('groupby 와 사용자 정의 함수 사용하기')
+result = mygrouping.agg(myroot)#mygrouping에 루트를 씌워 result에 결과 데이터 저장
+print(result)#결과 데이터 출력
+print('-' * 30)
+#매개변수를 2개 사용하여 데이터 만들기
+print('groupby와 사용자 정의 함수 (매개변수 2개) 사용하기')
+result = mygrouping.agg(plus_add, somevalue=3)#plus_add함수를 사용하여 루트를 씌운 값에 3을 더하여 그룹핑한 결과 데이터 result 만들기
+print(result)#결과값 출력
+
+
+#수직 막대 그래프 그리기
+
+print('컬럼 2개 이상을 그룹핑하기')
+newgrouping = dftheater.groupby(['theater', 'region'])['bindo']#데이터의 theater와 region 칼럼을 그룹화
+result = newgrouping.count()#그룹핑 결과의 빈도수 구하기
+print(result)#결과 데이터 출력
+print('-' * 30)
+
+newDf = df.loc[:, ['평균','개수']]#그래프의 범례(legend)를 평균과 개수로 설정
+newDf.plot(kind='bar', rot=0)#막대 그래프, 회전 0도로 그래프 그리기
+plt.title('3개 극장의 평균과 상영관 수')
+# pit.show()
+fi1ename='visualizationExam_02.png'#파일 이름 지정
+plt.savefig(filename)#파일 저장
+print(filename + '파일 저장됨')
+
+#3개 극장에 대한 파이 그래프 그리기
+
+labels = []  #labels : 원주 외곽에 보여줄 라벨
+explode = (0, 0.03, 0.06)
+#부각 정도 explode, megabox와 daehan은 그래프에서 더 부각되어 보이도록 설정
+for key in sumSeries.index:  #sumSeries의 index의 모든 key에 대해 반복
+  mydata = key + '(' + str(sumSeries[key]) + ')'
+  #극장 이름(상영건수)의 형식으로 데이터 저장
+  labels.append(mydata)  #mydata를 레이블에 추가
+fig1, ax1 = plt.subplots()  #그림의 프레임 fig1, 그래프가 그려지는 공간 ax1으로 
+mytuple = tuple(labels)  #레이블을 튜플로 변경
+
+ax1.pie(sumSeries, explode=explode, labels=mytuple, autopct='%1.1f%%',shadow=True, startangle=90)#sumSeries의 데이트를 이용, 이전에 지정한 부각 정도,레이블 지정, 값은 소수점 한자리로 하여 파이그래프 그리기
+ax1.axis('equal')#파이 차트가 원의 형태를 유지하도록 설정
+# plt.show()
+filename='visualizationExam_03.png'#파일 이름 지정
+plt.savefig(filename)#파일 저장
+print (filename + ' 파일 저장됨')
+
